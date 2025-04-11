@@ -205,8 +205,6 @@ To check whether the peer is server or client:
 
     Multiplayer.IsServer();
 
-.. _doc_high_level_multiplayer_rpcs:
-
 Remote procedure calls
 ----------------------
 
