@@ -311,6 +311,8 @@ Methods
    +-----------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`float<class_float>`                           | :ref:`region_get_enter_cost<class_NavigationServer3D_method_region_get_enter_cost>`\ (\ region\: :ref:`RID<class_RID>`\ ) |const|                                                                                                                                                                                                                                            |
    +-----------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`int<class_int>`                               | :ref:`region_get_iteration_id<class_NavigationServer3D_method_region_get_iteration_id>`\ (\ region\: :ref:`RID<class_RID>`\ ) |const|                                                                                                                                                                                                                                        |
+   +-----------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`RID<class_RID>`                               | :ref:`region_get_map<class_NavigationServer3D_method_region_get_map>`\ (\ region\: :ref:`RID<class_RID>`\ ) |const|                                                                                                                                                                                                                                                          |
    +-----------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                               | :ref:`region_get_navigation_layers<class_NavigationServer3D_method_region_get_navigation_layers>`\ (\ region\: :ref:`RID<class_RID>`\ ) |const|                                                                                                                                                                                                                              |
@@ -1283,6 +1285,8 @@ Create a new map.
 
 |void| **map_force_update**\ (\ map\: :ref:`RID<class_RID>`\ ) :ref:`🔗<class_NavigationServer3D_method_map_force_update>`
 
+**Deprecated:** This method is no longer supported, as it is incompatible with asynchronous updates. It can only be used in a single-threaded context, at your own risk.
+
 This function immediately forces synchronization of the specified navigation ``map`` :ref:`RID<class_RID>`. By default navigation maps are only synchronized at the end of each physics frame. This function can be used to immediately (re)calculate all the navigation meshes and region connections of the navigation map. This makes it possible to query a navigation path for a changed map immediately and in the same frame (multiple times if needed).
 
 Due to technical restrictions the current NavigationServer command queue will be flushed. This means all already queued update commands for this physics frame will be executed, even those intended for other maps, regions and agents not part of the specified map. The expensive computation of the navigation meshes and region connections of a map will only be done for the specified map. Other maps will receive the normal synchronization at the end of the physics frame. Should the specified map receive changes after the forced update it will update again as well when the other maps receive their update.
@@ -2062,6 +2066,20 @@ Returns ``true`` if the specified ``region`` is enabled.
 :ref:`float<class_float>` **region_get_enter_cost**\ (\ region\: :ref:`RID<class_RID>`\ ) |const| :ref:`🔗<class_NavigationServer3D_method_region_get_enter_cost>`
 
 Returns the enter cost of this ``region``.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_NavigationServer3D_method_region_get_iteration_id:
+
+.. rst-class:: classref-method
+
+:ref:`int<class_int>` **region_get_iteration_id**\ (\ region\: :ref:`RID<class_RID>`\ ) |const| :ref:`🔗<class_NavigationServer3D_method_region_get_iteration_id>`
+
+Returns the current iteration ID of the navigation region. Every time the navigation region changes and synchronizes, the iteration ID increases. An iteration ID of ``0`` means the navigation region has never synchronized.
+
+\ **Note:** The iteration ID will wrap around to ``1`` after reaching its range limit.
 
 .. rst-class:: classref-item-separator
 

@@ -197,6 +197,8 @@ binary name.
     you can enable at compile-time to better debug certain engine issues.
     See :ref:`doc_using_sanitizers` for more information.
 
+.. _doc_introduction_to_the_buildsystem_debugging_symbols:
+
 Debugging symbols
 -----------------
 
@@ -237,6 +239,8 @@ Several compiler optimization levels can be chosen from:
   optimizations available.
 - ``optimize=size`` *(default when targeting the Web platform)*: Favors small
   binaries at the cost of slower execution speed.
+- ``optimize=size_extra``: Favors even smaller binaries, at the cost of even
+  slower execution speed compared to ``optimize=size``.
 - ``optimize=debug``: Only enables optimizations that do not impact debugging in
   any way. This results in faster binaries than ``optimize=none``, but slower
   binaries than ``optimize=speed_trace``.

@@ -1,183 +1,132 @@
 .. _doc_editor_inspector_dock:
 
-The Inspector
-=============
-Overview of the interface
--------------------------
-The **Inspector dock** is located on the right side of the editor. It is used to 
-edit :ref:`Node<class_node>` properties, create and manage :ref:`Resources<doc_resources>`, and 
-provide easy access to documentation for selected objects and their properties.
+Inspector Dock
+===============
 
-.. image:: img/inspector_editor_overview.webp
+The Inspector dock lists all properties of an object, resource, or node.
+It will update the list of the properties as you select a different node from the 
+Scene Tree dock, or if you use **Open** command from the FileSystem's context menu.
 
-Viewing documentation
-~~~~~~~~~~~~~~~~~~~~~
-**Tooltips** are essential for understanding the numerous properties you'll 
-encounter in the Inspector. The property's description and documentation are 
-shown in a tooltip when you mouseover the property's label.
+.. image:: img/inspector_overview.webp
 
-.. image:: img/inspector_tooltip.webp
+This page explains how the Inspector dock works in-depth. You will learn how to edit 
+properties, fold and unfold areas, use the search bar, and more.
 
-.. tip:: Tooltip documentation can also be added to your custom properties 
-    written in GDScript. See 
-    :ref:`GDScript documentation comments<doc_gdscript_documentation_comments>` 
-    for more information.
- 
-The Inspector has two buttons that open full documentation pages in the 
-**Script Editor** workspace:
+Usage
+-----
 
-.. image:: img/inspector_documentation.webp
+If the inspector dock is visible, clicking on a node in the scene tree will automatically
+display its properties.
+If it is not visible, you can show it by navigating to
+**Editor > Editor Settings > Editor Docks > Inspector**.
 
-- **Object Documentation Button**: Opens documentation for the selected object.
-- Select **Open Documentation** from a property's right-click context menu to 
-  open the selected object's documentation and jump to the designated property 
-  entry.
+At the top of the dock are the file and navigation buttons.
 
-Managing object properties
---------------------------
-The **Manage Object Properties** button menu has the following options:
+.. image:: img/inspector_top_buttons.webp
 
-.. image:: img/inspector_manage_button.webp
+From left to right:
 
-- **Expand All**: Expand all the collapsible property groups.
-- **Collapse All**: Collapse all the property groups.
-- **Expand Non-Default**: Expand only the property groups that contain edited 
-  properties.
-- **Raw (e.g. "z_index")**: Display the actual property name on labels, without 
-  formatting.
-- **Capitalized (e.g. "Z Index")**: Format property labels with capital letters 
-  and spaces between words.
-- **Localized**: Display property label localized to the editor language, if 
-  available.
-- **Copy Properties**: Copy all property values on the selected object to the 
-  clipboard.
-- **Paste Properties**: Paste all property values from the clipboard to the 
-  selected object, where applicable.
-- **Make Sub-Resources Unique**: Make all of the selected object's shared 
-  *Sub-Resources* unique, so that edits to the Sub-Resource are not shared 
-  between each object that references it.
+- Opens a new window to select and create a resource in the memory and edit it.
+- Opens a resource from the FileSystem to edit.
+- Saves the currently edited resource to disk.
+- Provides options to:
 
-.. image:: img/inspector_filter_properties.webp
+  - **Edit Resource from Clipboard** by pasting the copied resource.
+  - **Copy Resource** to clipboard.
+  - **Show in FileSystem** if the resource is already saved.
+  - **Make Resource Built-In** to work in a built-in resource, not the one from the disk.
+  
+- The "<" and ">" arrows let you navigate through your edited object history.
+- The button next to them opens the history list for a quicker navigation. If you created multiple 
+  resources in the memory, you will also see them here.
 
-- **Filter Properties**: Search for and filter properties and property groups in 
-  the Inspector.
+Below, you can find the selected node's icon, its name, and the quick button to open 
+its documentation on the right side.
+Clicking on the node's name itself will list the sub-resources of this node if there are any.
 
-.. image:: img/inspector_filter_example.webp
+Then comes the search bar. Type anything in it to filter displayed properties. 
+Delete the text to clear the search.
+This search is case insensitive and also searches letter by letter as you type.
+For instance, if you type ``vsb``, one of the results you see will be
+Visibility property as this property contains all of these letters.
 
-.. note:: The **Filter Properties** text field uses *smart typing*, which means 
-    you only need to enter partial words to begin searching. Notice in the above 
-    screenshot how filtering by "text" results in properties that include the 
-    words "Text" and "Context", as well as the *CanvasItem* property group named 
-    "Texture".
+Before discussing the tool button next to the filter bar, it is worth mentioning 
+what you actually see below it and how it is structured.
 
-A property's right-click context menu has the following options:
+.. image:: img/inspector_dock_overlay.webp
 
-.. image:: img/inspector_property_context.webp
+Properties are grouped inside their respective *classes* as *sections*.
+You can expand each section to view the related properties.
 
-- **Copy Value**: Copy property value to the clipboard.
-- **Paste Value**:  Paste property value from the clipboard.
-- **Copy Property Path**: Copy the unformatted property name. e.g. "flip_h" is 
-  the path for the property labeled "Flip H".
-- **Favorite/Unfavorite Property**: Place the property at the top of the 
-  inspector for all objects of the selected class.
-- **Pin Value**: Pin a value to force it to be saved, even if it's equal to the 
-  default value.
-- **Open Documentation**: Open the selected object's documentation in the 
-  **Script Editor** and jump to the designated property entry.  
+You can also open the documentation of each class by right-clicking on a class
+and selecting **Open Documentation**.
+Similarly, you can right click on a property and copy or paste its value,
+copy the property path, favorite it to be shown on the top of the inspector, or open its 
+documentation page.
 
-.. tip:: Use **Pin Value** when the default value on a custom script is adequate 
-    and does not need to be changed in the Inspector, but there's a possibility 
-    that it may be changed in the code later. 
-    
-    For example, consider a scenario where ``var speed = 15`` is refactored to 
-    ``var speed`` by a programmer cleaning up property initializations. 
-    With a pinned ``speed`` property there's no need to manually change the new 
-    default value of ``0`` back to ``15`` in the Inspector. This removes the 
-    chance of potential errors that may be introduced with such a task 
-    (miscommunication with a designer working in the Inspector, forgetting to 
-    update documentation, etc.)
+If you hover your mouse over a property, you will see the description of what 
+it does as well as how it can be called inside the script.
 
-Navigating the inspector history
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Navigate through the history of selected objects with the three buttons at the 
-top right of the Inspector:
+You can directly change the values by clicking, typing, or selecting from the menu.
+If the property is a number or a slider, you can keep your left mouse button 
+pressed and drag to change the values.
 
-.. image:: img/inspector_history_buttons.webp
+.. image:: img/inspector_dock_subresource.webp
 
-- **Previous**: Go to previous edited object in history.
-- **Next**: Go to next edited object in history.
-- **View History**: List of recently edited objects.
+If a node's property is a sub-resource, you can click on the down arrow to pick a 
+resource type, or load one using the **Quick Load** or **Load** options.
+Alternatively, a supported resource can be dragged from the FileSystem.
+Once you start dragging, the compatible property will be highlighted.
+Simply drop it on the appropriate property's value.
 
-.. tip:: Use the Inspector history to jump between commonly used objects without 
-    having to find and select them every time from the Viewport, Scene dock, or 
-    FileSystem dock.
+After loading a sub-resource, you can click on it to see its properties or adjust them.
 
-Creating and managing resources
--------------------------------
-Create, load, save, and manage Resources with the four buttons at the top left 
-of the Inspector:
+.. |undo| image:: img/inspector_dock_revert.webp
 
-.. image:: img/inspector_resource_buttons.webp
+The values with different values than their original values will have a revert icon (|undo|).
+Clicking on this icon reverts the value to its original state.
+If the values are linked with each other, they will have a chain icon and changing one
+will change others as well. You can unchain them by clicking on this icon.
 
-- **New**: Create a new resource in memory and edit it.
-- **Load**: Load an existing resource from disk and edit it.\
-- **Save**: Save the currently edited resource.\
-- **More Options**: Edit Resource from Clipboard, Copy Resource, Show in 
-  FileSystem, Make Resource Built-In
+If you are changing a property a lot, you may consider favoriting it by right-clicking and
+choosing **Favorite Property**. This will show it at the top of the inspector for all objects 
+of this class.
 
-View and select all of a Node's Sub-Resources with the Node's dropdown menu:
+Now that we have a better understanding of the terms, we can proceed with the tool menu. 
+If you click the tool menu icon next to the filter bar, a drop-down menu will offer
+various view and edit options.
 
-.. image:: img/inspector_resource_sub.webp
+.. image:: img/inspector_tools_menu.webp
 
-.. note:: For more information on the different types of Resources, see the 
-    :ref:`Resource API page <class_resource>`.
-    
-    Detailed instructions on how to use the Inspector to create and edit 
-    Resources are available in the 
-    :ref:`manual's Resources section<doc_resources>`.
+- **Expand All**: Expands all sections showing all available properties.
+- **Collapse All**: Collapses all properties showing only classes and the sections.
+- **Expand Non-Default**: Only expands the sections where the original value is different
+  than the current value (the properties with a revert icon (|undo|)).
+- **Property Name Style**: This section determines how the properties' text is displayed in 
+  the inspector. ``Raw`` uses the property's own naming, ``Capitalized`` uses title 
+  case by changing the initial letters of each word to uppercase and removing underscores, 
+  ``Localized`` displays the translation of the properties if you are using the Editor 
+  in a language other than English.
+- **Copy Properties**: Copies all properties of the current node with their current values.
+- **Paste Properties**: Pastes the copied properties from the clipboard. Useful to apply 
+  the common properties of one node to another.
+- **Make Sub-Resources Unique**: By default, a duplicated node shares the sub-resources of
+  the original node. Changing one parameter of the sub-resource in one node, affects 
+  the other one.
+  Clicking this option makes each sub-resource used in this node unique, separated from 
+  other nodes.
 
-Numeric property field shortcuts
---------------------------------
+.. tip:: If a node has exported variables in its attached script, you will also see these 
+  in the inspector. The first image in this section has one for the Player node:
+  `Action Suffix`. See :ref:`doc_gdscript_exports` for more on this topic.
 
-Numeric properties in the Inspector can be set using many of Godot's built-in 
-mathematical expressions and constants. For example, you can enter ``randf()`` 
-to set a property's value to a random float between ``0.0`` and ``1.0``, or 
-write an operation like ``4*7.5/PI``.
+.. seealso:: Refer to :ref:`doc_customizing_editor` for dock customization options.
 
-.. note:: For a list of mathematical methods and constants in Godot, see the 
-    :ref:`GDScript API page <class_@gdscript>`
 
-Move keyboard focus between properties:
+.. break down inspector content in class name, property categories that are foldable, and individual properties.
 
-+-------------------------+--------------------+--------------------+
-| Shortcut Key Action     | Windows, Linux     | macOS              |
-+=========================+====================+====================+
-| Next property field     | :kbd:`Tab`         | :kbd:`Tab`         |
-+-------------------------+--------------------+--------------------+
-| Previous property field | :kbd:`Shift + Tab` | :kbd:`Shift + Tab` |
-+-------------------------+--------------------+--------------------+
-
-Left click and drag a numeric property value to change it in ``0.005`` increments (on 
-macOS it will be ``0.01`` increments). Hold the following modifier keys for 
-additional control:
-
-+-------------------------------------------------------+----------------+--------------+
-| Modifier Key Action                                   | Windows, Linux | macOS        |
-+=======================================================+================+==============+
-| Increase/Decrease value by ``1`` and round to integer | :kbd:`Ctrl`    | :kbd:`Cmd`   |
-+-------------------------------------------------------+----------------+--------------+
-| Increase/Decrease value by ``0.001``                  | :kbd:`Shift`   | :kbd:`Shift` |
-+-------------------------------------------------------+----------------+--------------+
-
-Use :kbd:`Up Arrow` and :kbd:`Down Arrow` to change a numeric property value in 
-``1.0`` increments. Hold the following modifier keys for additional control:
-
-+------------------------------------+----------------+--------------+
-| Modifier Key Action                | Windows, Linux | macOS        |
-+====================================+================+==============+
-| Increase/Decrease value by ``0.1`` | :kbd:`Alt`     | :kbd:`Opt`   |
-+------------------------------------+----------------+--------------+
-| Increase/Decrease value by ``10``  | :kbd:`Shift`   | :kbd:`Shift` |
-+------------------------------------+----------------+--------------+
-| Increase/Decrease value by ``100`` | :kbd:`Ctrl`    | :kbd:`Cmd`   |
-+------------------------------------+----------------+--------------+
+.. Using the buttons at the top.
+.. Using the tool menu
+.. List each property type and how to edit it
+.. For numerical inputs, mention and link to a page about formulas
+.. Refer to :ref:`doc_filesystem_dock`

@@ -3671,6 +3671,8 @@ If a property is :ref:`String<class_String>`, hints that the property represents
 
 If a property is :ref:`Array<class_Array>`, hints the editor how to show elements. The ``hint_string`` must encode nested types using ``":"`` and ``"/"``.
 
+If a property is :ref:`Dictionary<class_Dictionary>`, hints the editor how to show elements. The ``hint_string`` is the same as :ref:`Array<class_Array>`, with a ``";"`` separating the key and value.
+
 
 .. tabs::
 
@@ -3802,7 +3804,9 @@ Hints that an :ref:`int<class_int>` property is a pointer. Used by GDExtension.
 
 :ref:`PropertyHint<enum_@GlobalScope_PropertyHint>` **PROPERTY_HINT_ARRAY_TYPE** = ``31``
 
-Hints that a property is an :ref:`Array<class_Array>` with the stored type specified in the hint string.
+Hints that a property is an :ref:`Array<class_Array>` with the stored type specified in the hint string. The hint string contains the type of the array (e.g. ``"String"``).
+
+Use the hint string format from :ref:`PROPERTY_HINT_TYPE_STRING<class_@GlobalScope_constant_PROPERTY_HINT_TYPE_STRING>` for more control over the stored type.
 
 .. _class_@GlobalScope_constant_PROPERTY_HINT_DICTIONARY_TYPE:
 
@@ -3810,7 +3814,9 @@ Hints that a property is an :ref:`Array<class_Array>` with the stored type speci
 
 :ref:`PropertyHint<enum_@GlobalScope_PropertyHint>` **PROPERTY_HINT_DICTIONARY_TYPE** = ``38``
 
-Hints that a property is a :ref:`Dictionary<class_Dictionary>` with the stored types specified in the hint string.
+Hints that a property is a :ref:`Dictionary<class_Dictionary>` with the stored types specified in the hint string. The hint string contains the key and value types separated by a semicolon (e.g. ``"int;String"``).
+
+Use the hint string format from :ref:`PROPERTY_HINT_TYPE_STRING<class_@GlobalScope_constant_PROPERTY_HINT_TYPE_STRING>` for more control over the stored types.
 
 .. _class_@GlobalScope_constant_PROPERTY_HINT_LOCALE_ID:
 
@@ -3875,11 +3881,19 @@ Hints that a :ref:`Callable<class_Callable>` property should be displayed as a c
 
 Hints that a property will be changed on its own after setting, such as :ref:`AudioStreamPlayer.playing<class_AudioStreamPlayer_property_playing>` or :ref:`GPUParticles3D.emitting<class_GPUParticles3D_property_emitting>`.
 
+.. _class_@GlobalScope_constant_PROPERTY_HINT_GROUP_ENABLE:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`PropertyHint<enum_@GlobalScope_PropertyHint>` **PROPERTY_HINT_GROUP_ENABLE** = ``42``
+
+Hints that a boolean property will enable the feature associated with the group that it occurs in. Only works within a group or subgroup.
+
 .. _class_@GlobalScope_constant_PROPERTY_HINT_MAX:
 
 .. rst-class:: classref-enumeration-constant
 
-:ref:`PropertyHint<enum_@GlobalScope_PropertyHint>` **PROPERTY_HINT_MAX** = ``42``
+:ref:`PropertyHint<enum_@GlobalScope_PropertyHint>` **PROPERTY_HINT_MAX** = ``43``
 
 Represents the size of the :ref:`PropertyHint<enum_@GlobalScope_PropertyHint>` enum.
 
@@ -6015,7 +6029,7 @@ Infinity values of the same sign are considered equal.
 
 :ref:`bool<class_bool>` **is_finite**\ (\ x\: :ref:`float<class_float>`\ ) :ref:`🔗<class_@GlobalScope_method_is_finite>`
 
-Returns whether ``x`` is a finite value, i.e. it is not :ref:`@GDScript.NAN<class_@GDScript_constant_NAN>`, positive infinity, or negative infinity.
+Returns whether ``x`` is a finite value, i.e. it is not :ref:`@GDScript.NAN<class_@GDScript_constant_NAN>`, positive infinity, or negative infinity. See also :ref:`is_inf()<class_@GlobalScope_method_is_inf>` and :ref:`is_nan()<class_@GlobalScope_method_is_nan>`.
 
 .. rst-class:: classref-item-separator
 
@@ -6027,7 +6041,7 @@ Returns whether ``x`` is a finite value, i.e. it is not :ref:`@GDScript.NAN<clas
 
 :ref:`bool<class_bool>` **is_inf**\ (\ x\: :ref:`float<class_float>`\ ) :ref:`🔗<class_@GlobalScope_method_is_inf>`
 
-Returns ``true`` if ``x`` is either positive infinity or negative infinity.
+Returns ``true`` if ``x`` is either positive infinity or negative infinity. See also :ref:`is_finite()<class_@GlobalScope_method_is_finite>` and :ref:`is_nan()<class_@GlobalScope_method_is_nan>`.
 
 .. rst-class:: classref-item-separator
 
@@ -6063,7 +6077,7 @@ Returns ``true`` if ``instance`` is a valid Object (e.g. has not been deleted fr
 
 :ref:`bool<class_bool>` **is_nan**\ (\ x\: :ref:`float<class_float>`\ ) :ref:`🔗<class_@GlobalScope_method_is_nan>`
 
-Returns ``true`` if ``x`` is a NaN ("Not a Number" or invalid) value.
+Returns ``true`` if ``x`` is a NaN ("Not a Number" or invalid) value. This method is needed as :ref:`@GDScript.NAN<class_@GDScript_constant_NAN>` is not equal to itself, which means ``x == NAN`` can't be used to check whether a value is a NaN.
 
 .. rst-class:: classref-item-separator
 
@@ -7206,7 +7220,7 @@ Returns the square root of ``x``, where ``x`` is a non-negative number.
     sqrt(10.24) # Returns 3.2
     sqrt(-1)    # Returns NaN
 
-\ **Note:** Negative values of ``x`` return NaN ("Not a Number"). in C#, if you need negative inputs, use ``System.Numerics.Complex``.
+\ **Note:** Negative values of ``x`` return NaN ("Not a Number"). In C#, if you need negative inputs, use ``System.Numerics.Complex``.
 
 .. rst-class:: classref-item-separator
 

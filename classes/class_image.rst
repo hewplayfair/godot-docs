@@ -143,6 +143,8 @@ Methods
    +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Error<enum_@GlobalScope_Error>`         | :ref:`load_bmp_from_buffer<class_Image_method_load_bmp_from_buffer>`\ (\ buffer\: :ref:`PackedByteArray<class_PackedByteArray>`\ )                                                                                                                                                 |
    +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`Error<enum_@GlobalScope_Error>`         | :ref:`load_dds_from_buffer<class_Image_method_load_dds_from_buffer>`\ (\ buffer\: :ref:`PackedByteArray<class_PackedByteArray>`\ )                                                                                                                                                 |
+   +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Image<class_Image>`                     | :ref:`load_from_file<class_Image_method_load_from_file>`\ (\ path\: :ref:`String<class_String>`\ ) |static|                                                                                                                                                                        |
    +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Error<enum_@GlobalScope_Error>`         | :ref:`load_jpg_from_buffer<class_Image_method_load_jpg_from_buffer>`\ (\ buffer\: :ref:`PackedByteArray<class_PackedByteArray>`\ )                                                                                                                                                 |
@@ -172,6 +174,10 @@ Methods
    | |void|                                        | :ref:`rotate_90<class_Image_method_rotate_90>`\ (\ direction\: :ref:`ClockDirection<enum_@GlobalScope_ClockDirection>`\ )                                                                                                                                                          |
    +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                        | :ref:`rotate_180<class_Image_method_rotate_180>`\ (\ )                                                                                                                                                                                                                             |
+   +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`Error<enum_@GlobalScope_Error>`         | :ref:`save_dds<class_Image_method_save_dds>`\ (\ path\: :ref:`String<class_String>`\ ) |const|                                                                                                                                                                                     |
+   +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`PackedByteArray<class_PackedByteArray>` | :ref:`save_dds_to_buffer<class_Image_method_save_dds_to_buffer>`\ (\ ) |const|                                                                                                                                                                                                     |
    +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Error<enum_@GlobalScope_Error>`         | :ref:`save_exr<class_Image_method_save_exr>`\ (\ path\: :ref:`String<class_String>`, grayscale\: :ref:`bool<class_bool>` = false\ ) |const|                                                                                                                                        |
    +-----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -1430,6 +1436,20 @@ Loads an image from the binary contents of a BMP file.
 
 ----
 
+.. _class_Image_method_load_dds_from_buffer:
+
+.. rst-class:: classref-method
+
+:ref:`Error<enum_@GlobalScope_Error>` **load_dds_from_buffer**\ (\ buffer\: :ref:`PackedByteArray<class_PackedByteArray>`\ ) :ref:`🔗<class_Image_method_load_dds_from_buffer>`
+
+Loads an image from the binary contents of a DDS file.
+
+\ **Note:** This method is only available in engine builds with the DDS module enabled. By default, the DDS module is enabled, but it can be disabled at build-time using the ``module_dds_enabled=no`` SCons option.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_Image_method_load_from_file:
 
 .. rst-class:: classref-method
@@ -1580,7 +1600,7 @@ Resizes the image to the given ``width`` and ``height``. New pixels are calculat
 
 |void| **resize_to_po2**\ (\ square\: :ref:`bool<class_bool>` = false, interpolation\: :ref:`Interpolation<enum_Image_Interpolation>` = 1\ ) :ref:`🔗<class_Image_method_resize_to_po2>`
 
-Resizes the image to the nearest power of 2 for the width and height. If ``square`` is ``true`` then set width and height to be the same. New pixels are calculated using the ``interpolation`` mode defined via :ref:`Interpolation<enum_Image_Interpolation>` constants.
+Resizes the image to the nearest power of 2 for the width and height. If ``square`` is ``true``, sets width and height to be the same. New pixels are calculated using the ``interpolation`` mode defined via :ref:`Interpolation<enum_Image_Interpolation>` constants.
 
 .. rst-class:: classref-item-separator
 
@@ -1622,6 +1642,34 @@ Rotates the image by ``180`` degrees. The width and height of the image must be 
 
 ----
 
+.. _class_Image_method_save_dds:
+
+.. rst-class:: classref-method
+
+:ref:`Error<enum_@GlobalScope_Error>` **save_dds**\ (\ path\: :ref:`String<class_String>`\ ) |const| :ref:`🔗<class_Image_method_save_dds>`
+
+Saves the image as a DDS (DirectDraw Surface) file to ``path``. DDS is a container format that can store textures in various compression formats, such as DXT1, DXT5, or BC7. This function will return :ref:`@GlobalScope.ERR_UNAVAILABLE<class_@GlobalScope_constant_ERR_UNAVAILABLE>` if Godot was compiled without the DDS module.
+
+\ **Note:** The DDS module may be disabled in certain builds, which means :ref:`save_dds()<class_Image_method_save_dds>` will return :ref:`@GlobalScope.ERR_UNAVAILABLE<class_@GlobalScope_constant_ERR_UNAVAILABLE>` when it is called from an exported project.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_Image_method_save_dds_to_buffer:
+
+.. rst-class:: classref-method
+
+:ref:`PackedByteArray<class_PackedByteArray>` **save_dds_to_buffer**\ (\ ) |const| :ref:`🔗<class_Image_method_save_dds_to_buffer>`
+
+Saves the image as a DDS (DirectDraw Surface) file to a byte array. DDS is a container format that can store textures in various compression formats, such as DXT1, DXT5, or BC7. This function will return an empty byte array if Godot was compiled without the DDS module.
+
+\ **Note:** The DDS module may be disabled in certain builds, which means :ref:`save_dds_to_buffer()<class_Image_method_save_dds_to_buffer>` will return an empty byte array when it is called from an exported project.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_Image_method_save_exr:
 
 .. rst-class:: classref-method
@@ -1644,7 +1692,7 @@ Saves the image as an EXR file to ``path``. If ``grayscale`` is ``true`` and the
 
 Saves the image as an EXR file to a byte array. If ``grayscale`` is ``true`` and the image has only one channel, it will be saved explicitly as monochrome rather than one red channel. This function will return an empty byte array if Godot was compiled without the TinyEXR module.
 
-\ **Note:** The TinyEXR module is disabled in non-editor builds, which means :ref:`save_exr()<class_Image_method_save_exr>` will return an empty byte array when it is called from an exported project.
+\ **Note:** The TinyEXR module is disabled in non-editor builds, which means :ref:`save_exr_to_buffer()<class_Image_method_save_exr_to_buffer>` will return an empty byte array when it is called from an exported project.
 
 .. rst-class:: classref-item-separator
 

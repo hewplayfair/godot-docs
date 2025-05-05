@@ -109,7 +109,9 @@ Positive floating-point infinity. This is the result of floating-point division 
 
 **NAN** = ``nan`` :ref:`🔗<class_@GDScript_constant_NAN>`
 
-"Not a Number", an invalid floating-point value. :ref:`NAN<class_@GDScript_constant_NAN>` has special properties, including that ``!=`` always returns ``true``, while other comparison operators always return ``false``. This is true even when comparing with itself (``NAN == NAN`` returns ``false`` and ``NAN != NAN`` returns ``true``). It is returned by some invalid operations, such as dividing floating-point ``0.0`` by ``0.0``.
+"Not a Number", an invalid floating-point value. It is returned by some invalid operations, such as dividing floating-point ``0.0`` by ``0.0``.
+
+\ :ref:`NAN<class_@GDScript_constant_NAN>` has special properties, including that ``!=`` always returns ``true``, while other comparison operators always return ``false``. This is true even when comparing with itself (``NAN == NAN`` returns ``false`` and ``NAN != NAN`` returns ``true``). Due to this, you must use :ref:`@GlobalScope.is_nan()<class_@GlobalScope_method_is_nan>` to check whether a number is equal to :ref:`NAN<class_@GDScript_constant_NAN>`.
 
 \ **Warning:** "Not a Number" is only a concept with floating-point numbers, and has no equivalent for integers. Dividing an integer ``0`` by ``0`` will not result in :ref:`NAN<class_@GDScript_constant_NAN>` and will result in a run-time error instead.
 
@@ -1089,7 +1091,7 @@ Starting from ``_ready()``, ``bar()`` would print:
 
 **Deprecated:** Consider using :ref:`JSON.from_native()<class_JSON_method_from_native>` or :ref:`Object.get_property_list()<class_Object_method_get_property_list>` instead.
 
-Returns the passed ``instance`` converted to a Dictionary. Can be useful for serializing.
+Returns the passed ``instance`` converted to a :ref:`Dictionary<class_Dictionary>`. Can be useful for serializing.
 
 ::
 
@@ -1128,7 +1130,7 @@ Returns ``true`` if ``value`` is an instance of ``type``. The ``type`` value mus
 
 - A :ref:`Script<class_Script>` (you can use any class, including inner one).
 
-Unlike the right operand of the ``is`` operator, ``type`` can be a non-constant value. The ``is`` operator supports more features (such as typed arrays). Use the operator instead of this method if you do not need dynamic type checking.
+Unlike the right operand of the ``is`` operator, ``type`` can be a non-constant value. The ``is`` operator supports more features (such as typed arrays). Use the operator instead of this method if you do not need to check the type dynamically.
 
 \ **Examples:**\ 
 

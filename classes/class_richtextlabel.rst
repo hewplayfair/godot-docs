@@ -53,6 +53,8 @@ Properties
    +-----------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------+
    | :ref:`AutowrapMode<enum_TextServer_AutowrapMode>`                           | :ref:`autowrap_mode<class_RichTextLabel_property_autowrap_mode>`                                                 | ``3``                                                                     |
    +-----------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------+
+   | |bitfield|\[:ref:`LineBreakFlag<enum_TextServer_LineBreakFlag>`\]           | :ref:`autowrap_trim_flags<class_RichTextLabel_property_autowrap_trim_flags>`                                     | ``192``                                                                   |
+   +-----------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                                     | :ref:`bbcode_enabled<class_RichTextLabel_property_bbcode_enabled>`                                               | ``false``                                                                 |
    +-----------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                                     | clip_contents                                                                                                    | ``true`` (overrides :ref:`Control<class_Control_property_clip_contents>`) |
@@ -66,6 +68,8 @@ Properties
    | :ref:`bool<class_bool>`                                                     | :ref:`drag_and_drop_selection_enabled<class_RichTextLabel_property_drag_and_drop_selection_enabled>`             | ``true``                                                                  |
    +-----------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                                     | :ref:`fit_content<class_RichTextLabel_property_fit_content>`                                                     | ``false``                                                                 |
+   +-----------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------+
+   | :ref:`FocusMode<enum_Control_FocusMode>`                                    | focus_mode                                                                                                       | ``3`` (overrides :ref:`Control<class_Control_property_focus_mode>`)       |
    +-----------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                                     | :ref:`hint_underlined<class_RichTextLabel_property_hint_underlined>`                                             | ``true``                                                                  |
    +-----------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------+
@@ -119,7 +123,7 @@ Methods
    :widths: auto
 
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | |void|                              | :ref:`add_image<class_RichTextLabel_method_add_image>`\ (\ image\: :ref:`Texture2D<class_Texture2D>`, width\: :ref:`int<class_int>` = 0, height\: :ref:`int<class_int>` = 0, color\: :ref:`Color<class_Color>` = Color(1, 1, 1, 1), inline_align\: :ref:`InlineAlignment<enum_@GlobalScope_InlineAlignment>` = 5, region\: :ref:`Rect2<class_Rect2>` = Rect2(0, 0, 0, 0), key\: :ref:`Variant<class_Variant>` = null, pad\: :ref:`bool<class_bool>` = false, tooltip\: :ref:`String<class_String>` = "", size_in_percent\: :ref:`bool<class_bool>` = false\ )                                                                                 |
+   | |void|                              | :ref:`add_image<class_RichTextLabel_method_add_image>`\ (\ image\: :ref:`Texture2D<class_Texture2D>`, width\: :ref:`int<class_int>` = 0, height\: :ref:`int<class_int>` = 0, color\: :ref:`Color<class_Color>` = Color(1, 1, 1, 1), inline_align\: :ref:`InlineAlignment<enum_@GlobalScope_InlineAlignment>` = 5, region\: :ref:`Rect2<class_Rect2>` = Rect2(0, 0, 0, 0), key\: :ref:`Variant<class_Variant>` = null, pad\: :ref:`bool<class_bool>` = false, tooltip\: :ref:`String<class_String>` = "", size_in_percent\: :ref:`bool<class_bool>` = false, alt_text\: :ref:`String<class_String>` = ""\ )                                    |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                              | :ref:`add_text<class_RichTextLabel_method_add_text>`\ (\ text\: :ref:`String<class_String>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -139,9 +143,13 @@ Methods
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`               | :ref:`get_line_count<class_RichTextLabel_method_get_line_count>`\ (\ ) |const|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`int<class_int>`               | :ref:`get_line_height<class_RichTextLabel_method_get_line_height>`\ (\ line\: :ref:`int<class_int>`\ ) |const|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+   +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`float<class_float>`           | :ref:`get_line_offset<class_RichTextLabel_method_get_line_offset>`\ (\ line\: :ref:`int<class_int>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Vector2i<class_Vector2i>`     | :ref:`get_line_range<class_RichTextLabel_method_get_line_range>`\ (\ line\: :ref:`int<class_int>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+   +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`int<class_int>`               | :ref:`get_line_width<class_RichTextLabel_method_get_line_width>`\ (\ line\: :ref:`int<class_int>`\ ) |const|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`PopupMenu<class_PopupMenu>`   | :ref:`get_menu<class_RichTextLabel_method_get_menu>`\ (\ ) |const|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -237,9 +245,11 @@ Methods
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                              | :ref:`push_strikethrough<class_RichTextLabel_method_push_strikethrough>`\ (\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | |void|                              | :ref:`push_table<class_RichTextLabel_method_push_table>`\ (\ columns\: :ref:`int<class_int>`, inline_align\: :ref:`InlineAlignment<enum_@GlobalScope_InlineAlignment>` = 0, align_to_row\: :ref:`int<class_int>` = -1\ )                                                                                                                                                                                                                                                                                                                                                                                                                      |
+   | |void|                              | :ref:`push_table<class_RichTextLabel_method_push_table>`\ (\ columns\: :ref:`int<class_int>`, inline_align\: :ref:`InlineAlignment<enum_@GlobalScope_InlineAlignment>` = 0, align_to_row\: :ref:`int<class_int>` = -1, name\: :ref:`String<class_String>` = ""\ )                                                                                                                                                                                                                                                                                                                                                                             |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                              | :ref:`push_underline<class_RichTextLabel_method_push_underline>`\ (\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+   +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                              | :ref:`reload_effects<class_RichTextLabel_method_reload_effects>`\ (\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`             | :ref:`remove_paragraph<class_RichTextLabel_method_remove_paragraph>`\ (\ paragraph\: :ref:`int<class_int>`, no_invalidate\: :ref:`bool<class_bool>` = false\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -260,6 +270,8 @@ Methods
    | |void|                              | :ref:`set_cell_size_override<class_RichTextLabel_method_set_cell_size_override>`\ (\ min_size\: :ref:`Vector2<class_Vector2>`, max_size\: :ref:`Vector2<class_Vector2>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                              | :ref:`set_table_column_expand<class_RichTextLabel_method_set_table_column_expand>`\ (\ column\: :ref:`int<class_int>`, expand\: :ref:`bool<class_bool>`, ratio\: :ref:`int<class_int>` = 1, shrink\: :ref:`bool<class_bool>` = true\ )                                                                                                                                                                                                                                                                                                                                                                                                        |
+   +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                              | :ref:`set_table_column_name<class_RichTextLabel_method_set_table_column_name>`\ (\ column\: :ref:`int<class_int>`, name\: :ref:`String<class_String>`\ )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                              | :ref:`update_image<class_RichTextLabel_method_update_image>`\ (\ key\: :ref:`Variant<class_Variant>`, mask\: |bitfield|\[:ref:`ImageUpdateMask<enum_RichTextLabel_ImageUpdateMask>`\], image\: :ref:`Texture2D<class_Texture2D>`, width\: :ref:`int<class_int>` = 0, height\: :ref:`int<class_int>` = 0, color\: :ref:`Color<class_Color>` = Color(1, 1, 1, 1), inline_align\: :ref:`InlineAlignment<enum_@GlobalScope_InlineAlignment>` = 5, region\: :ref:`Rect2<class_Rect2>` = Rect2(0, 0, 0, 0), pad\: :ref:`bool<class_bool>` = false, tooltip\: :ref:`String<class_String>` = "", size_in_percent\: :ref:`bool<class_bool>` = false\ ) |
    +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -612,6 +624,23 @@ Property Descriptions
 - :ref:`AutowrapMode<enum_TextServer_AutowrapMode>` **get_autowrap_mode**\ (\ )
 
 If set to something other than :ref:`TextServer.AUTOWRAP_OFF<class_TextServer_constant_AUTOWRAP_OFF>`, the text gets wrapped inside the node's bounding rectangle. To see how each mode behaves, see :ref:`AutowrapMode<enum_TextServer_AutowrapMode>`.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_RichTextLabel_property_autowrap_trim_flags:
+
+.. rst-class:: classref-property
+
+|bitfield|\[:ref:`LineBreakFlag<enum_TextServer_LineBreakFlag>`\] **autowrap_trim_flags** = ``192`` :ref:`🔗<class_RichTextLabel_property_autowrap_trim_flags>`
+
+.. rst-class:: classref-property-setget
+
+- |void| **set_autowrap_trim_flags**\ (\ value\: |bitfield|\[:ref:`LineBreakFlag<enum_TextServer_LineBreakFlag>`\]\ )
+- |bitfield|\[:ref:`LineBreakFlag<enum_TextServer_LineBreakFlag>`\] **get_autowrap_trim_flags**\ (\ )
+
+Autowrap space trimming flags. See :ref:`TextServer.BREAK_TRIM_START_EDGE_SPACES<class_TextServer_constant_BREAK_TRIM_START_EDGE_SPACES>` and :ref:`TextServer.BREAK_TRIM_END_EDGE_SPACES<class_TextServer_constant_BREAK_TRIM_END_EDGE_SPACES>` for more info.
 
 .. rst-class:: classref-item-separator
 
@@ -1099,7 +1128,7 @@ Method Descriptions
 
 .. rst-class:: classref-method
 
-|void| **add_image**\ (\ image\: :ref:`Texture2D<class_Texture2D>`, width\: :ref:`int<class_int>` = 0, height\: :ref:`int<class_int>` = 0, color\: :ref:`Color<class_Color>` = Color(1, 1, 1, 1), inline_align\: :ref:`InlineAlignment<enum_@GlobalScope_InlineAlignment>` = 5, region\: :ref:`Rect2<class_Rect2>` = Rect2(0, 0, 0, 0), key\: :ref:`Variant<class_Variant>` = null, pad\: :ref:`bool<class_bool>` = false, tooltip\: :ref:`String<class_String>` = "", size_in_percent\: :ref:`bool<class_bool>` = false\ ) :ref:`🔗<class_RichTextLabel_method_add_image>`
+|void| **add_image**\ (\ image\: :ref:`Texture2D<class_Texture2D>`, width\: :ref:`int<class_int>` = 0, height\: :ref:`int<class_int>` = 0, color\: :ref:`Color<class_Color>` = Color(1, 1, 1, 1), inline_align\: :ref:`InlineAlignment<enum_@GlobalScope_InlineAlignment>` = 5, region\: :ref:`Rect2<class_Rect2>` = Rect2(0, 0, 0, 0), key\: :ref:`Variant<class_Variant>` = null, pad\: :ref:`bool<class_bool>` = false, tooltip\: :ref:`String<class_String>` = "", size_in_percent\: :ref:`bool<class_bool>` = false, alt_text\: :ref:`String<class_String>` = ""\ ) :ref:`🔗<class_RichTextLabel_method_add_image>`
 
 Adds an image's opening and closing tags to the tag stack, optionally providing a ``width`` and ``height`` to resize the image, a ``color`` to tint the image and a ``region`` to only use parts of the image.
 
@@ -1112,6 +1141,8 @@ If ``width`` and ``height`` are not set, but ``region`` is, the region's rect wi
 If ``pad`` is set, and the image is smaller than the size specified by ``width`` and ``height``, the image padding is added to match the size instead of upscaling.
 
 If ``size_in_percent`` is set, ``width`` and ``height`` values are percentages of the control width instead of pixels.
+
+\ ``alt_text`` is used as the image description for assistive apps.
 
 .. rst-class:: classref-item-separator
 
@@ -1241,6 +1272,20 @@ Returns the total number of lines in the text. Wrapped text is counted as multip
 
 ----
 
+.. _class_RichTextLabel_method_get_line_height:
+
+.. rst-class:: classref-method
+
+:ref:`int<class_int>` **get_line_height**\ (\ line\: :ref:`int<class_int>`\ ) |const| :ref:`🔗<class_RichTextLabel_method_get_line_height>`
+
+Returns the height of the line found at the provided index.
+
+\ **Note:** If :ref:`threaded<class_RichTextLabel_property_threaded>` is enabled, this method returns a value for the loaded part of the document. Use :ref:`is_finished()<class_RichTextLabel_method_is_finished>` or :ref:`finished<class_RichTextLabel_signal_finished>` to determine whether the document is fully loaded.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_RichTextLabel_method_get_line_offset:
 
 .. rst-class:: classref-method
@@ -1266,6 +1311,20 @@ Returns the indexes of the first and last visible characters for the given ``lin
 \ **Note:** If :ref:`visible_characters_behavior<class_RichTextLabel_property_visible_characters_behavior>` is set to :ref:`TextServer.VC_CHARS_BEFORE_SHAPING<class_TextServer_constant_VC_CHARS_BEFORE_SHAPING>` only visible wrapped lines are counted.
 
 \ **Note:** If :ref:`threaded<class_RichTextLabel_property_threaded>` is enabled, this method returns a value for the loaded part of the document. Use :ref:`is_finished()<class_RichTextLabel_method_is_finished>` or :ref:`finished<class_RichTextLabel_signal_finished>` to determine whether document is fully loaded.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_RichTextLabel_method_get_line_width:
+
+.. rst-class:: classref-method
+
+:ref:`int<class_int>` **get_line_width**\ (\ line\: :ref:`int<class_int>`\ ) |const| :ref:`🔗<class_RichTextLabel_method_get_line_width>`
+
+Returns the width of the line found at the provided index.
+
+\ **Note:** If :ref:`threaded<class_RichTextLabel_property_threaded>` is enabled, this method returns a value for the loaded part of the document. Use :ref:`is_finished()<class_RichTextLabel_method_is_finished>` or :ref:`finished<class_RichTextLabel_signal_finished>` to determine whether the document is fully loaded.
 
 .. rst-class:: classref-item-separator
 
@@ -1649,6 +1708,8 @@ Terminates tags opened after the last :ref:`push_context()<class_RichTextLabel_m
 
 Adds a ``[bgcolor]`` tag to the tag stack.
 
+\ **Note:** The background color has padding applied by default, which is controlled using :ref:`text_highlight_h_padding<class_RichTextLabel_theme_constant_text_highlight_h_padding>` and :ref:`text_highlight_v_padding<class_RichTextLabel_theme_constant_text_highlight_v_padding>`. This can lead to overlapping highlights if background colors are placed on neighboring lines/columns, so consider setting those theme items to ``0`` if you want to avoid this.
+
 .. rst-class:: classref-item-separator
 
 ----
@@ -1744,6 +1805,8 @@ Adds a ``[dropcap]`` tag to the tag stack. Drop cap (dropped capital) is a decor
 |void| **push_fgcolor**\ (\ fgcolor\: :ref:`Color<class_Color>`\ ) :ref:`🔗<class_RichTextLabel_method_push_fgcolor>`
 
 Adds a ``[fgcolor]`` tag to the tag stack.
+
+\ **Note:** The foreground color has padding applied by default, which is controlled using :ref:`text_highlight_h_padding<class_RichTextLabel_theme_constant_text_highlight_h_padding>` and :ref:`text_highlight_v_padding<class_RichTextLabel_theme_constant_text_highlight_v_padding>`. This can lead to overlapping highlights if foreground colors are placed on neighboring lines/columns, so consider setting those theme items to ``0`` if you want to avoid this.
 
 .. rst-class:: classref-item-separator
 
@@ -1927,9 +1990,9 @@ Adds a ``[s]`` tag to the tag stack.
 
 .. rst-class:: classref-method
 
-|void| **push_table**\ (\ columns\: :ref:`int<class_int>`, inline_align\: :ref:`InlineAlignment<enum_@GlobalScope_InlineAlignment>` = 0, align_to_row\: :ref:`int<class_int>` = -1\ ) :ref:`🔗<class_RichTextLabel_method_push_table>`
+|void| **push_table**\ (\ columns\: :ref:`int<class_int>`, inline_align\: :ref:`InlineAlignment<enum_@GlobalScope_InlineAlignment>` = 0, align_to_row\: :ref:`int<class_int>` = -1, name\: :ref:`String<class_String>` = ""\ ) :ref:`🔗<class_RichTextLabel_method_push_table>`
 
-Adds a ``[table=columns,inline_align]`` tag to the tag stack. Use :ref:`set_table_column_expand()<class_RichTextLabel_method_set_table_column_expand>` to set column expansion ratio. Use :ref:`push_cell()<class_RichTextLabel_method_push_cell>` to add cells.
+Adds a ``[table=columns,inline_align]`` tag to the tag stack. Use :ref:`set_table_column_expand()<class_RichTextLabel_method_set_table_column_expand>` to set column expansion ratio. Use :ref:`push_cell()<class_RichTextLabel_method_push_cell>` to add cells. ``name`` is used as the table name for assistive apps.
 
 .. rst-class:: classref-item-separator
 
@@ -1942,6 +2005,18 @@ Adds a ``[table=columns,inline_align]`` tag to the tag stack. Use :ref:`set_tabl
 |void| **push_underline**\ (\ ) :ref:`🔗<class_RichTextLabel_method_push_underline>`
 
 Adds a ``[u]`` tag to the tag stack.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_RichTextLabel_method_reload_effects:
+
+.. rst-class:: classref-method
+
+|void| **reload_effects**\ (\ ) :ref:`🔗<class_RichTextLabel_method_reload_effects>`
+
+Reloads custom effects. Useful when :ref:`custom_effects<class_RichTextLabel_property_custom_effects>` is modified manually.
 
 .. rst-class:: classref-item-separator
 
@@ -2072,6 +2147,18 @@ Edits the selected column's expansion options. If ``expand`` is ``true``, the co
 For example, 2 columns with ratios 3 and 4 plus 70 pixels in available width would expand 30 and 40 pixels, respectively.
 
 If ``expand`` is ``false``, the column will not contribute to the total ratio.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_RichTextLabel_method_set_table_column_name:
+
+.. rst-class:: classref-method
+
+|void| **set_table_column_name**\ (\ column\: :ref:`int<class_int>`, name\: :ref:`String<class_String>`\ ) :ref:`🔗<class_RichTextLabel_method_set_table_column_name>`
+
+Sets table column name for assistive apps.
 
 .. rst-class:: classref-item-separator
 
@@ -2282,7 +2369,7 @@ The vertical separation of elements in a table.
 
 :ref:`int<class_int>` **text_highlight_h_padding** = ``3`` :ref:`🔗<class_RichTextLabel_theme_constant_text_highlight_h_padding>`
 
-The horizontal padding around boxes drawn by the ``[fgcolor]`` and ``[bgcolor]`` tags. This does not affect the appearance of text selection.
+The horizontal padding around boxes drawn by the ``[fgcolor]`` and ``[bgcolor]`` tags. This does not affect the appearance of text selection. To avoid any risk of neighboring highlights overlapping each other, set this to ``0`` to disable padding.
 
 .. rst-class:: classref-item-separator
 
@@ -2294,7 +2381,7 @@ The horizontal padding around boxes drawn by the ``[fgcolor]`` and ``[bgcolor]``
 
 :ref:`int<class_int>` **text_highlight_v_padding** = ``3`` :ref:`🔗<class_RichTextLabel_theme_constant_text_highlight_v_padding>`
 
-The vertical padding around boxes drawn by the ``[fgcolor]`` and ``[bgcolor]`` tags. This does not affect the appearance of text selection.
+The vertical padding around boxes drawn by the ``[fgcolor]`` and ``[bgcolor]`` tags. This does not affect the appearance of text selection. To avoid any risk of neighboring highlights overlapping each other, set this to ``0`` to disable padding.
 
 .. rst-class:: classref-item-separator
 
